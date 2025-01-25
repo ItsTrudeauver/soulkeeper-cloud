@@ -156,6 +156,27 @@ body {
     text-shadow: 2px 2px var(--neon-pink),
                 -2px -2px var(--neon-cyan);
 }
+.cyber-tab {
+    position: relative;
+    margin: 1rem 0;
+    padding: 1rem;
+    border: var(--cyber-border);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top center;
+    background: var(--terminal-bg);
+}
+
+.cyber-tab::before {
+    content: '▶ TAB ACTIVE';
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: var(--terminal-bg);
+    padding: 0 5px;
+    font-size: 0.8rem;
+    color: var(--neon-pink);
+}
 
 @keyframes glitch {
     0% { text-shadow: 2px 2px var(--neon-pink), -2px -2px var(--neon-cyan); }
