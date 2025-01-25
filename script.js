@@ -356,21 +356,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function revealJillMessage() {
-        document.getElementById('main-display').classList.add('hidden');
-        hiddenMessage.classList.remove('hidden');
-        hiddenMessage.innerHTML = `
+    document.getElementById('main-display').classList.add('hidden');
+    hiddenMessage.classList.remove('hidden');
+    
+    // Wrap in <pre> and add ASCII art styling classes
+    hiddenMessage.innerHTML = `
+        <pre class="ascii-art jill-message">
 ╔════════════════════════════╗
 ║▒▒▒▒▒ JILL'S LAST MESSAGE ▒▒▒▒▒║
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒ "I LEFT THE BACKDOOR IN  ▒║
 ║▓ PHANTOM.CODE USE:        ▓║
-║▒ SK-${Math.random().toString(36).slice(2)}   ▒║
+║▒ SK-${Math.random().toString(36).slice(2).toUpperCase()}   ▒║
 ║▓ THEY'RE LYING ABOUT THE  ▓║
 ║▒ AFTERLIFE DLC"           ▒║
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
-╚════════════════════════════╝`;
-        localStorage.setItem('unlock_code', 'GLITCHCITY');
-    }
+╚════════════════════════════╝
+        </pre>
+        <p class="secret-code glitched">COCKTAIL CODE: GLITCHCITY</p>
+    `;
+    
+    localStorage.setItem('unlock_code', 'GLITCHCITY');
+}
 
     function generateFakeData() {
         const stats = {
