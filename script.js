@@ -4,23 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const hiddenMessage = document.getElementById('hidden-message');
     let clickCount = 0;
 
-    // Initialize terminal
-    typeWriter("INITIALIZING SOULKEEPER™ CLOUD...\n\n", () => {
-        simulateLoading(() => {
-            typeWriter("ACCESSING LAZARUS NEUROSYSTEMS MAINFRAME...\n");
-            generateFakeData();
-            showCommandList();
-            commandInput.focus();
-        });
-    });
+    // Async initialization sequence
+    (async () => {
+        await typeWriter("INITIALIZING SOULKEEPER™ CLOUD...\n\n");
+        await simulateLoading(2000);
+        await typeWriter("ACCESSING LAZARUS NEUROSYSTEMS MAINFRAME...\n");
+        generateFakeData();
+        showCommandList();
+        commandInput.focus();
+    })();
 
-    // Easter egg handling
+    // Easter egg handler
     document.getElementById('easter-egg-trigger').addEventListener('click', () => {
-        clickCount++;
-        if(clickCount === 3) revealJillMessage();
+        if(++clickCount === 3) revealJillMessage();
     });
 
-    // Command processing
+    // Command input handler
     commandInput.addEventListener('keypress', (e) => {
         if(e.key === 'Enter') {
             processCommand(commandInput.value.trim());
@@ -43,7 +42,6 @@ const ASCII = {
     ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
     ╚════════════════════════════╝
     `,
-
     soulAudit: `
     ╔════════════════════════════╗
     ║▒▒▒▒▒▒▒▒▒▒▒▒ SOUL AUDIT ▒▒▒▒▒▒▒║
@@ -54,7 +52,6 @@ const ASCII = {
     ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
     ╚════════════════════════════╝
     `,
-
     afterlifeDLC: `
     ╔════════════════════════════╗
     ║▒▒▒▒▒▒▒ AFTERLIFE DLC ▒▒▒▒▒▒▒║
@@ -65,7 +62,6 @@ const ASCII = {
     ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
     ╚════════════════════════════╝
     `,
-
     blackArchives: `
     ╔════════════════════════════╗
     ║▒▒▒▒▒ DECRYPTING ARCHIVES ▒▒▒▒▒║
@@ -79,7 +75,7 @@ const ASCII = {
 };
 
 function showCommandList() {
-    const commands = `
+    terminalOutput.innerHTML += `
 ╔════════════════════════════╗
 ║       COMMAND LIST         ║
 ╟────────────────────────────╢
@@ -90,53 +86,58 @@ function showCommandList() {
 ║ [ESC] Log Out              ║
 ╚════════════════════════════╝
     `;
-    terminalOutput.innerHTML += commands;
+}
+
+async function typeWriter(text, speed = 30) {
+    return new Promise(resolve => {
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                terminalOutput.innerHTML += glitchText(text.charAt(i));
+                i++;
+                setTimeout(type, speed);
+            } else {
+                resolve();
+            }
+        }
+        type();
+    });
+}
+
+async function simulateLoading(duration = 2000) {
+    return new Promise(resolve => {
+        const loader = document.createElement('div');
+        loader.className = 'loading';
+        terminalOutput.appendChild(loader);
+
+        let dots = 0;
+        const interval = setInterval(() => {
+            loader.textContent = `LOADING ${'.'.repeat(dots)}`;
+            dots = (dots % 3) + 1;
+        }, 500);
+
+        setTimeout(() => {
+            clearInterval(interval);
+            terminalOutput.removeChild(loader);
+            resolve();
+        }, duration);
+    });
 }
 
 function processCommand(command) {
-    const output = document.getElementById('output');
-    output.innerHTML += '\n> ' + command + '\n';
+    terminalOutput.innerHTML += '\n> ' + command + '\n';
     
     switch(command.toLowerCase()) {
-        case '1':
-            viewBackupArchives();
-            break;
-        case '2':
-            initiateSoulAudit();
-            break;
-        case '3':
-            purchaseAfterlifeDLC();
-            break;
-        case '4':
-            decryptBlackArchives();
-            break;
-        case 'esc':
-            logOut();
-            break;
-        case 'dorothy':
-            unlockSecretDrink();
-            break;
-        default:
-            typeWriter(`UNKNOWN COMMAND: ${command}\n`);
+        case '1': viewBackupArchives(); break;
+        case '2': initiateSoulAudit(); break;
+        case '3': purchaseAfterlifeDLC(); break;
+        case '4': decryptBlackArchives(); break;
+        case 'esc': logOut(); break;
+        case 'dorothy': unlockSecretDrink(); break;
+        default: typeWriter(`UNKNOWN COMMAND: ${command}\n`);
     }
     
-    output.scrollTop = output.scrollHeight;
-}
-
-function typeWriter(text, callback, speed = 30) {
-    let i = 0;
-    const output = document.getElementById('output');
-    
-    function type() {
-        if (i < text.length) {
-            output.innerHTML += glitchText(text.charAt(i));
-            i++;
-            setTimeout(type, speed);
-        } else if (callback) {
-            callback();
-        }
-    }
-    type();
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
 
 function glitchText(text, intensity = 0.1) {
@@ -148,58 +149,46 @@ function glitchText(text, intensity = 0.1) {
     ).join('');
 }
 
-function viewBackupArchives() {
-    typeWriter("\nACCESSING BLACK ARCHIVES...\n", () => {
-        document.getElementById('output').innerHTML += ASCII.archives;
-        simulateLoading(() => {
-            typeWriter("\nWARNING: CORRUPTED ENTRIES DETECTED\n");
-        });
-    });
+async function viewBackupArchives() {
+    await typeWriter("\nACCESSING BLACK ARCHIVES...\n");
+    terminalOutput.innerHTML += ASCII.archives;
+    await simulateLoading(1500);
+    await typeWriter("\nWARNING: CORRUPTED ENTRIES DETECTED\n");
 }
 
-function initiateSoulAudit() {
-    typeWriter("\nINITIATING SOUL INTEGRITY SCAN...\n", () => {
-        document.getElementById('output').innerHTML += ASCII.soulAudit;
-        simulateLoading(() => {
-            typeWriter("\nALERT: TRAUMA ECHOES DETECTED\n");
-        });
-    });
+async function initiateSoulAudit() {
+    await typeWriter("\nINITIATING SOUL INTEGRITY SCAN...\n");
+    terminalOutput.innerHTML += ASCII.soulAudit;
+    await simulateLoading(1500);
+    await typeWriter("\nALERT: TRAUMA ECHOES DETECTED\n");
 }
 
-function purchaseAfterlifeDLC() {
-    typeWriter("\nCONNECTING TO LAZARUS STORE...\n", () => {
-        document.getElementById('output').innerHTML += ASCII.afterlifeDLC;
-        simulateLoading(() => {
-            typeWriter("\nERROR: INSUFFICIENT CREDITS\n");
-        });
-    });
+async function purchaseAfterlifeDLC() {
+    await typeWriter("\nCONNECTING TO LAZARUS STORE...\n");
+    terminalOutput.innerHTML += ASCII.afterlifeDLC;
+    await simulateLoading(1500);
+    await typeWriter("\nERROR: INSUFFICIENT CREDITS\n");
 }
 
-function decryptBlackArchives() {
-    typeWriter("\nINITIALIZING QUANTUM DECRYPTION...\n", () => {
-        document.getElementById('output').innerHTML += ASCII.blackArchives;
-        simulateLoading(() => {
-            typeWriter("\nWARNING: UNAUTHORIZED ACCESS DETECTED\n");
-        });
-    });
+async function decryptBlackArchives() {
+    await typeWriter("\nINITIALIZING QUANTUM DECRYPTION...\n");
+    terminalOutput.innerHTML += ASCII.blackArchives;
+    await simulateLoading(1500);
+    await typeWriter("\nWARNING: UNAUTHORIZED ACCESS DETECTED\n");
 }
 
-function logOut() {
-    typeWriter("\nTERMINATING SESSION...\n", () => {
-        simulateLoading(() => {
-            typeWriter("\n███] LOGOUT COMPLETE\n");
-            typeWriter("NEUROSYSTEMS THANKS YOU\n");
-        }, 1500);
-    });
+async function logOut() {
+    await typeWriter("\nTERMINATING SESSION...\n");
+    await simulateLoading(1000);
+    await typeWriter("\n███] LOGOUT COMPLETE\n");
+    await typeWriter("NEUROSYSTEMS THANKS YOU\n");
 }
 
-function unlockSecretDrink() {
-    typeWriter("\nVALIDATING SECRET CODE...\n", () => {
-        simulateLoading(() => {
-            typeWriter("\nUNLOCKED: 'GLITCH CITY BLUES' COCKTAIL\n");
-            typeWriter("VISIT VALHALLA TO REDEEM\n");
-        });
-    });
+async function unlockSecretDrink() {
+    await typeWriter("\nVALIDATING SECRET CODE...\n");
+    await simulateLoading(1000);
+    await typeWriter("\nUNLOCKED: 'GLITCH CITY BLUES' COCKTAIL\n");
+    await typeWriter("VISIT VALHALLA TO REDEEM\n");
 }
 
 function revealJillMessage() {
@@ -214,25 +203,5 @@ function generateFakeData() {
         trauma: Math.floor(Math.random() * 100),
         joy: Math.floor(Math.random() * 20)
     };
-
     document.documentElement.style.setProperty('--progress', `${stats.memory}%`);
-}
-
-function simulateLoading(callback, duration = 2000) {
-    const output = document.getElementById('output');
-    const loader = document.createElement('div');
-    loader.className = 'loading';
-    output.appendChild(loader);
-
-    let dots = 0;
-    const interval = setInterval(() => {
-        loader.textContent = `LOADING ${'.'.repeat(dots)}`;
-        dots = (dots % 3) + 1;
-    }, 500);
-
-    setTimeout(() => {
-        clearInterval(interval);
-        output.removeChild(loader);
-        if(callback) callback();
-    }, duration);
 }
