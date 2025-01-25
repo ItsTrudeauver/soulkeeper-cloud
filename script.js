@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let clickCount = 0;
     let activeTab = null;
 
-    const ASCII = {
+   const ASCII = {
     archives: `
 ╔══════════════════════════════════════════════════╗
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 ╚══════════════════════════════════════════════════╝
     `,
     
-    // Enhanced other ASCII panels with similar detail
     soulAudit: `
 ╔══════════════════════════════════════════════════╗
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ SOUL AUDIT v3.1.4 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
@@ -58,6 +57,35 @@ document.addEventListener('DOMContentLoaded', () => {
 ║▒ █ SOULBOUND ENCRYPTION ACTIVE                ▒║
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒▒▒▒▒▒▒▒ RECOMMENDATION: PURCHASE AFTERLIFE DLC ▒▒▒║
+╚══════════════════════════════════════════════════╝
+    `,
+    
+    afterlifeDLC: `
+╔══════════════════════════════════════════════════╗
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ AFTERLIFE DLC STORE ▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ BASIC TIER                               ₵9.99/m▓║
+║▒ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▒║
+║▓ ► 5GB Soul Storage                      ░░░░░ ▓║
+║▒ ► Basic Consciousness Upload            ░░░░░ ▒║
+║▓ ► Ad-Supported Afterlife                ░░░░░ ▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ PRO TIER                                ₵49.99/m▓║
+║▒ ████████████████████████████████████████████ ▒║
+║▓ ► 50GB Soul Storage                     ███▓░ ▓║
+║▒ ► Premium Neural Archives               ███▓░ ▒║
+║▓ ► Ad-Free Eternity                      ███▓░ ▓║
+║▒ ► Trauma Filter (Basic)                 ███▓░ ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒ ULTIMATE PACKAGE                        ₵999.99 ▒║
+║▓ ████████████████████████████████████████████ ▓║
+║▒ ► Unlimited Storage                     █████ ▒║
+║▓ ► Quantum Immortality                   █████ ▓║
+║▒ ► Memory Editing Suite                  █████ ▒║
+║▓ ► VIP Lazarus Support                   █████ ▓║
+║▒ ► [REDACTED] Feature                    █████ ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒ LIMITED TIME: FREE SOUL BACKUP! ▒▒▒▒▒▒▒▒▒║
 ╚══════════════════════════════════════════════════╝
     `,
     
