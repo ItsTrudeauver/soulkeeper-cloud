@@ -3,7 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const commandInput = document.getElementById('command-input');
     const hiddenMessage = document.getElementById('hidden-message');
     let clickCount = 0;
-
+    
+ console.log("Initialization started");
+    
+    (async () => {
+        try {
+            await typeWriter("INITIALIZING SOULKEEPER™ CLOUD...\n\n");
+            await simulateLoading(2000);
+            await typeWriter("ACCESSING LAZARUS NEUROSYSTEMS MAINFRAME...\n");
+            generateFakeData();
+            showCommandList(); // Now properly called after previous steps
+            commandInput.focus();
+            console.log("Initialization complete");
+        } catch (error) {
+            console.error("Initialization failed:", error);
+        }
+    })();
     // Async initialization sequence
     (async () => {
         await typeWriter("INITIALIZING SOULKEEPER™ CLOUD...\n\n");
