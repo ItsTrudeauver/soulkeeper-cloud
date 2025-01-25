@@ -6,49 +6,81 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeTab = null;
 
     const ASCII = {
-        archives: `
-        ╔════════════════════════════╗
-        ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
-        ║▒▒▒▒▒▒▒▒▒▒▒▒ BLACK ARCHIVES ▒▒▒▒▒▒▒║
-        ║▓ 199X_VAULT ░░░░░░░░░░░░░▓║
-        ║▒ ► jill_backup_1999.soul ▒║
-        ║▓ ► dana_core.mem        ▓║
-        ║▒ 207X_VAULT ███████████▒▒║
-        ║▓ ► user_${Math.random().toString(16).slice(2)}.soul ▓║
-        ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
-        ╚════════════════════════════╝
-        `,
-        soulAudit: `
-        ╔════════════════════════════╗
-        ║▒▒▒▒▒▒▒▒▒▒▒▒ SOUL AUDIT ▒▒▒▒▒▒▒║
-        ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
-        ║▒ TRAUMA INDEX: ████▓▓░░ 72% ▒║
-        ║▓ MEMORY LEAKS: █████▓░░░ 85% ▓║
-        ║▒ JOY FRAGMENTS: █▓░░░░░░ 15% ▒║
-        ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
-        ╚════════════════════════════╝
-        `,
-        afterlifeDLC: `
-        ╔════════════════════════════╗
-        ║▒▒▒▒▒▒▒ AFTERLIFE DLC ▒▒▒▒▒▒▒║
-        ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
-        ║▒ BASIC: ₵9.99/month ░░░░░ ▒║
-        ║▓ PRO: ₵49.99/month ███▓░ ▓║
-        ║▒ ETERNITY: ₵999.99 █████ ▒║
-        ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
-        ╚════════════════════════════╝
-        `,
-        blackArchives: `
-        ╔════════════════════════════╗
-        ║▒▒▒▒▒ DECRYPTING ARCHIVES ▒▒▒▒▒║
-        ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
-        ║▒ FILE: jill_backup.soul ▒║
-        ║▓ PROGRESS: █████▓░░░ 80% ▓║
-        ║▒ CONTENT: [REDACTED]    ▒║
-        ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
-        ╚════════════════════════════╝
-        `
-    };
+    archives: `
+╔══════════════════════════════════════════════════╗
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ BLACK ARCHIVES v9.4.20 ▒▒▒▒▒▒▒▒▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▒║
+║▓ [>] 199X_VAULT                     ₵ORRUPTION:88%▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓ ► jill_backup_1999.soul           [████░░ 64%] ▓║
+║▒   Type: Neural Ghost              Size: 847TB   ▒║
+║▓   Last Modified: 12/31/1999 23:59               ▓║
+║▒ ► dana_core.mem                   [███▓░░ 45%] ▒║
+║▓   Type: Memory Crypt              Size: 2.1PB   ▓║
+║▒   Last Access: 10/31/2001 00:01                 ▒║
+║▓ ► user_${Math.random().toString(16).slice(2)}.soul [▓░░░░░ 12%] ▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓ [>] 207X_VAULT                     ₵ORRUPTION:97%▓║
+║▒ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▒║
+║▓ ► neural_echo_2077.ghst           [▒▒▒▒▒▒ 100%]▓║
+║▒   Type: Fractured Psyche          Size: ????    ▒║
+║▓ ► Lazarus_Protocol_Omega.mem      [█▓▓▓░░ 55%] ▓║
+║▒   Type: Encrypted Directive       Size: 666ZB   ▒║
+║▓ ► [REDACTED]_X12.soul             [█████ 95%]  ▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓ [>] FRAGMENTED ENTRIES (${Math.floor(Math.random()*9999)})       ▓║
+║▒ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡ ▒║
+║▓ ░░░▒▓▓ ERROR: SOULBOUND ENCRYPTION DETECTED ▓▓▒░░▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒ DECRYPTION IMPOSSIBLE - CONSUME ₵OINS ▒▒▒▒▒║
+╚══════════════════════════════════════════════════╝
+    `,
+    
+    // Enhanced other ASCII panels with similar detail
+    soulAudit: `
+╔══════════════════════════════════════════════════╗
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ SOUL AUDIT v3.1.4 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ NEURAL INTEGRITY ASSESSMENT              ▓▓▓▓▓▓ ▓║
+║▒ ███████████████████████████▓▓▓░░░░░░ 72%       ▒║
+║▓ PSYCHIC FRAGMENTATION INDEX             ████▓░ ▓║
+║▒ ███████████████████████████████▓▓▓▓░░░ 89%     ▒║
+║▓ TRAUMA ECHO AMPLIFICATION               █▓░░░░ ▓║
+║▒ ██████████████████████████░░░░░░░░░░░ 15%      ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒ [WARNING]                                    ▒▒▒║
+║▓ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▓║
+║▒ █ CRITICAL MEMORY LEAK DETECTED              ▒║
+║▓ █ 127 ACTIVE NIGHTMARE PROTOCOLS             ▓║
+║▒ █ SOULBOUND ENCRYPTION ACTIVE                ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒ RECOMMENDATION: PURCHASE AFTERLIFE DLC ▒▒▒║
+╚══════════════════════════════════════════════════╝
+    `,
+    
+    blackArchives: `
+╔══════════════════════════════════════════════════╗
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ QUANTUM DECRYPTION ▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ TARGET: jill_backup_1999.soul                  ▓║
+║▒ PROGRESS: █████████████████████▓▓▓▓░░ 82%      ▒║
+║▓ ESTIMATED TIME: 14H 22M (Subject to paradox)   ▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ FRAGMENT RECOVERY:                            ▓║
+║▒ ► Memory_Shard_01.ghst         [███▓░░ 45%]   ▒║
+║▓ ► Trauma_Echo_1999.enc         [▓▓░░░░ 18%]   ▓║
+║▒ ► Last_Breath.frag             [█████ 100%]   ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒ [ALERT] NEURAL GHOST DETECTED IN STREAM       ▒▒║
+║▓ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓ ► INITIATE CONTAINMENT PROTOCOL? (Y/N)        ▓║
+╚══════════════════════════════════════════════════╝
+    `
+};
 
     async function typeWriter(text, speed = 30) {
         return new Promise(resolve => {
@@ -125,11 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function activateTab(command) {
-        if (activeTab) {
-            activeTab.style.transform = 'scale(0.8)';
-            activeTab.style.opacity = '0.5';
-            activeTab.style.zIndex = '1';
-        }
+    if (activeTab) {
+        activeTab.style.transform = 'scale(0.8) translateY(20px)';
+        activeTab.style.opacity = '0.3';
+        activeTab.style.filter = 'blur(2px)';
+    }
         
         const tabId = `tab-${command}`;
         let tab = document.getElementById(tabId);
@@ -148,6 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tab.style.opacity = '1';
         tab.style.zIndex = '2';
         activeTab = tab;
+        tab.innerHTML = glitchText(tab.innerHTML, 0.05);
+
     }
 
     function closeAllTabs() {
