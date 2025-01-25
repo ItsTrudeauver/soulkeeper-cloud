@@ -9,12 +9,13 @@ body {
     background: #000;
     font-family: 'VT323', monospace;
     color: var(--neon-cyan);
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    align-items: flex-start;
+    padding: 2rem 0;
+    overflow: auto;
 }
 
 .cyber-frame {
@@ -23,19 +24,58 @@ body {
     background: var(--terminal-bg);
     padding: 2rem;
     position: relative;
+    margin: 2rem;
 }
 
 .terminal {
     width: 800px;
-    height: 600px;
+    max-width: 90vw;
+    min-height: 600px;
+    max-height: 90vh;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+}
+
+#output {
+    height: calc(100% - 100px);
+    overflow-y: auto;
+    padding-right: 15px;
+}
+
+/* Custom Scrollbar */
+.terminal::-webkit-scrollbar {
+    width: 12px;
+}
+
+.terminal::-webkit-scrollbar-track {
+    background: rgba(0, 17, 0, 0.5);
+    border-left: var(--cyber-border);
+}
+
+.terminal::-webkit-scrollbar-thumb {
+    background: repeating-linear-gradient(
+        45deg,
+        var(--neon-cyan),
+        var(--neon-cyan) 5px,
+        #000 5px,
+        #000 10px
+    );
+    border: 2px solid #000;
+    border-radius: 2px;
+}
+
+.terminal::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-pink);
 }
 
 .header {
     border-bottom: var(--cyber-border);
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
+    position: sticky;
+    top: 0;
+    background: var(--terminal-bg);
+    z-index: 1;
 }
 
 .title {
@@ -88,6 +128,10 @@ body {
     display: flex;
     align-items: center;
     margin-top: 2rem;
+    position: sticky;
+    bottom: 0;
+    background: var(--terminal-bg);
+    padding: 1rem 0;
 }
 
 .cyber-input {
