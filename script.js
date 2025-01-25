@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
         simulateLoading(() => {
             typeWriter("ACCESSING LAZARUS NEUROSYSTEMS MAINFRAME...\n");
             generateFakeData();
-            showCommandPrompt();
+            showCommandList();
+            commandInput.focus();
         });
     });
 
@@ -20,10 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Command processing
-    commandInput.addEventListener('keyup', (e) => {
+    commandInput.addEventListener('keypress', (e) => {
         if(e.key === 'Enter') {
             processCommand(commandInput.value.trim());
             commandInput.value = '';
+            commandInput.focus();
         }
     });
 });
@@ -76,33 +78,24 @@ const ASCII = {
     `
 };
 
-function glitchText(text, intensity = 0.3) {
-    const glitchChars = ['▓', '░', '▒', '≡', '≣', '⌇', '⍓'];
-    return text.split('').map(c => 
-        Math.random() < intensity 
-            ? glitchChars[Math.floor(Math.random()*glitchChars.length)]
-            : c
-    ).join('');
-}
-
-function typeWriter(text, callback, speed = 50) {
-    let i = 0;
-    terminalOutput.innerHTML = '';
-    
-    function type() {
-        if (i < text.length) {
-            terminalOutput.innerHTML += glitchText(text.charAt(i));
-            i++;
-            setTimeout(type, speed);
-        } else if (callback) {
-            callback();
-        }
-    }
-    type();
+function showCommandList() {
+    const commands = `
+╔════════════════════════════╗
+║       COMMAND LIST         ║
+╟────────────────────────────╢
+║ [1] View Backup Archives   ║
+║ [2] Initiate Soul Audit    ║
+║ [3] Purchase Afterlife DLC ║
+║ [4] Decrypt Black Archives ║
+║ [ESC] Log Out              ║
+╚════════════════════════════╝
+    `;
+    terminalOutput.innerHTML += commands;
 }
 
 function processCommand(command) {
-    terminalOutput.innerHTML = '';
+    const output = document.getElementById('output');
+    output.innerHTML += '\n> ' + command + '\n';
     
     switch(command.toLowerCase()) {
         case '1':
@@ -126,20 +119,47 @@ function processCommand(command) {
         default:
             typeWriter(`UNKNOWN COMMAND: ${command}\n`);
     }
+    
+    output.scrollTop = output.scrollHeight;
+}
+
+function typeWriter(text, callback, speed = 30) {
+    let i = 0;
+    const output = document.getElementById('output');
+    
+    function type() {
+        if (i < text.length) {
+            output.innerHTML += glitchText(text.charAt(i));
+            i++;
+            setTimeout(type, speed);
+        } else if (callback) {
+            callback();
+        }
+    }
+    type();
+}
+
+function glitchText(text, intensity = 0.1) {
+    const glitchChars = ['▓', '░', '▒', '≡', '≣', '⌇', '⍓'];
+    return text.split('').map(c => 
+        Math.random() < intensity 
+            ? `<span class="glitch-char">${glitchChars[Math.floor(Math.random()*glitchChars.length)]}</span>`
+            : c
+    ).join('');
 }
 
 function viewBackupArchives() {
-    typeWriter("ACCESSING BLACK ARCHIVES...\n", () => {
-        terminalOutput.innerHTML += ASCII.archives;
+    typeWriter("\nACCESSING BLACK ARCHIVES...\n", () => {
+        document.getElementById('output').innerHTML += ASCII.archives;
         simulateLoading(() => {
-            typeWriter("\nWARNING: 3 CORRUPTED ENTRIES DETECTED\n");
+            typeWriter("\nWARNING: CORRUPTED ENTRIES DETECTED\n");
         });
     });
 }
 
 function initiateSoulAudit() {
-    typeWriter("INITIATING SOUL INTEGRITY SCAN...\n", () => {
-        terminalOutput.innerHTML += ASCII.soulAudit;
+    typeWriter("\nINITIATING SOUL INTEGRITY SCAN...\n", () => {
+        document.getElementById('output').innerHTML += ASCII.soulAudit;
         simulateLoading(() => {
             typeWriter("\nALERT: TRAUMA ECHOES DETECTED\n");
         });
@@ -147,8 +167,8 @@ function initiateSoulAudit() {
 }
 
 function purchaseAfterlifeDLC() {
-    typeWriter("CONNECTING TO LAZARUS STORE...\n", () => {
-        terminalOutput.innerHTML += ASCII.afterlifeDLC;
+    typeWriter("\nCONNECTING TO LAZARUS STORE...\n", () => {
+        document.getElementById('output').innerHTML += ASCII.afterlifeDLC;
         simulateLoading(() => {
             typeWriter("\nERROR: INSUFFICIENT CREDITS\n");
         });
@@ -156,8 +176,8 @@ function purchaseAfterlifeDLC() {
 }
 
 function decryptBlackArchives() {
-    typeWriter("INITIALIZING QUANTUM DECRYPTION...\n", () => {
-        terminalOutput.innerHTML += ASCII.blackArchives;
+    typeWriter("\nINITIALIZING QUANTUM DECRYPTION...\n", () => {
+        document.getElementById('output').innerHTML += ASCII.blackArchives;
         simulateLoading(() => {
             typeWriter("\nWARNING: UNAUTHORIZED ACCESS DETECTED\n");
         });
@@ -165,10 +185,19 @@ function decryptBlackArchives() {
 }
 
 function logOut() {
-    typeWriter("TERMINATING SESSION...\n", () => {
+    typeWriter("\nTERMINATING SESSION...\n", () => {
         simulateLoading(() => {
-            typeWriter("███] LOGOUT COMPLETE\n");
+            typeWriter("\n███] LOGOUT COMPLETE\n");
             typeWriter("NEUROSYSTEMS THANKS YOU\n");
+        }, 1500);
+    });
+}
+
+function unlockSecretDrink() {
+    typeWriter("\nVALIDATING SECRET CODE...\n", () => {
+        simulateLoading(() => {
+            typeWriter("\nUNLOCKED: 'GLITCH CITY BLUES' COCKTAIL\n");
+            typeWriter("VISIT VALHALLA TO REDEEM\n");
         });
     });
 }
@@ -177,15 +206,6 @@ function revealJillMessage() {
     document.getElementById('main-display').classList.add('hidden');
     hiddenMessage.classList.remove('hidden');
     localStorage.setItem('unlock_code', 'GLITCHCITY');
-}
-
-function unlockSecretDrink() {
-    typeWriter("VALIDATING SECRET CODE...\n", () => {
-        simulateLoading(() => {
-            typeWriter("UNLOCKED: 'GLITCH CITY BLUES' COCKTAIL\n");
-            typeWriter("VISIT VALHALLA TO REDEEM\n");
-        });
-    });
 }
 
 function generateFakeData() {
@@ -199,9 +219,10 @@ function generateFakeData() {
 }
 
 function simulateLoading(callback, duration = 2000) {
+    const output = document.getElementById('output');
     const loader = document.createElement('div');
     loader.className = 'loading';
-    terminalOutput.appendChild(loader);
+    output.appendChild(loader);
 
     let dots = 0;
     const interval = setInterval(() => {
@@ -211,11 +232,7 @@ function simulateLoading(callback, duration = 2000) {
 
     setTimeout(() => {
         clearInterval(interval);
+        output.removeChild(loader);
         if(callback) callback();
     }, duration);
-}
-
-function showCommandPrompt() {
-    typeWriter("\n\nSOULKEEPER™ READY\n");
-    typeWriter("ENTER COMMAND: [1-4] OR 'ESC'\n");
 }
