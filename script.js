@@ -2,14 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const terminalOutput = document.getElementById('output');
     const commandInput = document.getElementById('command-input');
     const hiddenMessage = document.getElementById('hidden-message');
+    const bgm = document.getElementById('bgm');
     let clickCount = 0;
     let activeTab = null;
     let containmentState = 'inactive';
     let containmentApproved = false;
     let hasAttemptedContainment = false;
 
-   const ASCII = {
-    archives: `
+    const ASCII = {
+        archives: `
 ╔══════════════════════════════════════════════════╗
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ BLACK ARCHIVES v9.4.20 ▒▒▒▒▒▒▒▒▒║
@@ -40,9 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒▒▒▒▒▒▒▒ DECRYPTION IMPOSSIBLE - CONSUME ₵OINS ▒▒▒▒▒║
 ╚══════════════════════════════════════════════════╝
-    `,
-    
-    soulAudit: `
+        `,
+        
+        soulAudit: `
 ╔══════════════════════════════════════════════════╗
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ SOUL AUDIT v3.1.4 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
@@ -61,9 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒▒▒▒▒▒▒▒ RECOMMENDATION: PURCHASE AFTERLIFE DLC ▒▒▒║
 ╚══════════════════════════════════════════════════╝
-    `,
-    
-    afterlifeDLC: `
+        `,
+        
+        afterlifeDLC: `
 ╔══════════════════════════════════════════════════╗
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ AFTERLIFE DLC STORE ▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
@@ -90,9 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒▒▒▒▒▒▒▒ LIMITED TIME: FREE SOUL BACKUP! ▒▒▒▒▒▒▒▒▒║
 ╚══════════════════════════════════════════════════╝
-    `,
-    
-    blackArchives: `
+        `,
+        
+        blackArchives: `
 ╔══════════════════════════════════════════════════╗
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ QUANTUM DECRYPTION ▓▓▓▓▓▓▓▓▓▓▓▓▓║
 ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
@@ -110,8 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
 ║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
 ║▓ ► INITIATE CONTAINMENT PROTOCOL? (Y/N)        ▓║
 ╚══════════════════════════════════════════════════╝
-    `
-};
+        `
+    };
 
     async function typeWriter(text, speed = 30) {
         return new Promise(resolve => {
@@ -380,6 +381,13 @@ document.addEventListener('DOMContentLoaded', () => {
             generateFakeData();
             showCommandList();
             commandInput.focus();
+            
+            try {
+                await bgm.play();
+                bgm.volume = 0.3;
+            } catch (error) {
+                console.log('Audio requires user interaction');
+            }
         } catch (error) {
             console.error("Initialization failed:", error);
         }
@@ -394,6 +402,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     commandInput.addEventListener('keypress', (e) => {
         if(e.key === 'Enter') {
+            if (bgm.paused) bgm.play().catch(() => {});
+            
             processCommand(commandInput.value.trim());
             commandInput.value = '';
             commandInput.focus();
