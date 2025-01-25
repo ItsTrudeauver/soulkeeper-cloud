@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    document.getElementById('img.site-logo').addEventListener('click', () => {
+    document.getElementById('main-logo').addEventListener('click', () => {
         if(++clickCount === 3) {
             revealJillMessage();
             clickCount = 0;
