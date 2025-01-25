@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoulKeeper™ Cloud - Lazarus NeuroSystems</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Audio Element -->
+    <audio id="bgm" loop>
+        <source src="assets/sound/Hopes and Dreams.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <div class="cyber-frame">
         <div class="terminal">
-            <div class="header glitched">
-                <div class="corpo-logo" id="easter-egg-trigger">
-                    ░L̶A̶Z̶A̶R̶U̶S̶░N̶E̶U̶R̶O̶S̶Y̶S̶T̶E̶M̶S̶
-                </div>
+            <header class="header glitched">
+                <img src="assets/img/lazarus-logo.png" alt="Lazarus NeuroSystems" class="site-logo">
                 <h1 class="title">SOULKEEPER™ CLOUD v3.1.7</h1>
-            </div>
+            </header>
 
             <div id="main-display">
                 <pre class="ascii-art" id="output">
@@ -47,6 +51,7 @@
             </div>
 
             <div id="hidden-message" class="hidden">
+                <img src="assets/img/jill-secret.png" alt="Jill's Secret" class="jill-image">
                 <pre class="ascii-art jill-message">
 ╔════════════════════════════╗
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
