@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   
     const bgm = document.getElementById('bgm');
-    document.body.addEventListener('click', () => {
-        bgm.play().catch(() => { 
-            console.log('Audio playback requires explicit user permission');
+   document.addEventListener('click', () => {
+        bgm.play().catch(() => {
+            console.log('Audio requires user interaction');
         });
     }, { once: true });
+    
+    
     const terminalOutput = document.getElementById('output');
     const commandInput = document.getElementById('command-input');
     const hiddenMessage = document.getElementById('hidden-message');
@@ -392,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    document.getElementById('easter-egg-trigger').addEventListener('click', () => {
+    document.getElementById('.site-logo').addEventListener('click', () => {
         if(++clickCount === 3) {
             revealJillMessage();
             clickCount = 0;
