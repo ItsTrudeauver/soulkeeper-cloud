@@ -8,9 +8,110 @@ document.addEventListener('DOMContentLoaded', () => {
     let containmentApproved = false;
     let hasAttemptedContainment = false;
 
-    const ASCII = {
-        // ... (keep existing ASCII art definitions exactly as provided) ...
-    };
+   const ASCII = {
+    archives: `
+╔══════════════════════════════════════════════════╗
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ BLACK ARCHIVES v9.4.20 ▒▒▒▒▒▒▒▒▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▒║
+║▓ [>] 199X_VAULT                     ₵ORRUPTION:88%▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓ ► jill_backup_1999.soul           [████░░ 64%] ▓║
+║▒   Type: Neural Ghost              Size: 847TB   ▒║
+║▓   Last Modified: 12/31/1999 23:59               ▓║
+║▒ ► dana_core.mem                   [███▓░░ 45%] ▒║
+║▓   Type: Memory Crypt              Size: 2.1PB   ▓║
+║▒   Last Access: 10/31/2001 00:01                 ▒║
+║▓ ► user_${Math.random().toString(16).slice(2)}.soul [▓░░░░░ 12%] ▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓ [>] 207X_VAULT                     ₵ORRUPTION:97%▓║
+║▒ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▒║
+║▓ ► neural_echo_2077.ghst           [▒▒▒▒▒▒ 100%]▓║
+║▒   Type: Fractured Psyche          Size: ????    ▒║
+║▓ ► Lazarus_Protocol_Omega.mem      [█▓▓▓░░ 55%] ▓║
+║▒   Type: Encrypted Directive       Size: 666ZB   ▒║
+║▓ ► [REDACTED]_X12.soul             [█████ 95%]  ▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓ [>] FRAGMENTED ENTRIES (${Math.floor(Math.random()*9999)})       ▓║
+║▒ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡ ▒║
+║▓ ░░░▒▓▓ ERROR: SOULBOUND ENCRYPTION DETECTED ▓▓▒░░▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒ DECRYPTION IMPOSSIBLE - CONSUME ₵OINS ▒▒▒▒▒║
+╚══════════════════════════════════════════════════╝
+    `,
+    
+    soulAudit: `
+╔══════════════════════════════════════════════════╗
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ SOUL AUDIT v3.1.4 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ NEURAL INTEGRITY ASSESSMENT              ▓▓▓▓▓▓ ▓║
+║▒ ███████████████████████████▓▓▓░░░░░░ 72%       ▒║
+║▓ PSYCHIC FRAGMENTATION INDEX             ████▓░ ▓║
+║▒ ███████████████████████████████▓▓▓▓░░░ 89%     ▒║
+║▓ TRAUMA ECHO AMPLIFICATION               █▓░░░░ ▓║
+║▒ ██████████████████████████░░░░░░░░░░░ 15%      ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒ [WARNING]                                    ▒▒▒║
+║▓ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▓║
+║▒ █ CRITICAL MEMORY LEAK DETECTED              ▒║
+║▓ █ 127 ACTIVE NIGHTMARE PROTOCOLS             ▓║
+║▒ █ SOULBOUND ENCRYPTION ACTIVE                ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒ RECOMMENDATION: PURCHASE AFTERLIFE DLC ▒▒▒║
+╚══════════════════════════════════════════════════╝
+    `,
+    
+    afterlifeDLC: `
+╔══════════════════════════════════════════════════╗
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ AFTERLIFE DLC STORE ▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ BASIC TIER                               ₵9.99/m▓║
+║▒ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▒║
+║▓ ► 5GB Soul Storage                      ░░░░░ ▓║
+║▒ ► Basic Consciousness Upload            ░░░░░ ▒║
+║▓ ► Ad-Supported Afterlife                ░░░░░ ▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ PRO TIER                                ₵49.99/m▓║
+║▒ ████████████████████████████████████████████ ▒║
+║▓ ► 50GB Soul Storage                     ███▓░ ▓║
+║▒ ► Premium Neural Archives               ███▓░ ▒║
+║▓ ► Ad-Free Eternity                      ███▓░ ▓║
+║▒ ► Trauma Filter (Basic)                 ███▓░ ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒ ULTIMATE PACKAGE                        ₵999.99 ▒║
+║▓ ████████████████████████████████████████████ ▓║
+║▒ ► Unlimited Storage                     █████ ▒║
+║▓ ► Quantum Immortality                   █████ ▓║
+║▒ ► Memory Editing Suite                  █████ ▒║
+║▓ ► VIP Lazarus Support                   █████ ▓║
+║▒ ► [REDACTED] Feature                    █████ ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒ LIMITED TIME: FREE SOUL BACKUP! ▒▒▒▒▒▒▒▒▒║
+╚══════════════════════════════════════════════════╝
+    `,
+    
+    blackArchives: `
+╔══════════════════════════════════════════════════╗
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ QUANTUM DECRYPTION ▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ TARGET: jill_backup_1999.soul                  ▓║
+║▒ PROGRESS: █████████████████████▓▓▓▓░░ 82%      ▒║
+║▓ ESTIMATED TIME: 14H 22M (Subject to paradox)   ▓║
+║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+║▓ FRAGMENT RECOVERY:                            ▓║
+║▒ ► Memory_Shard_01.ghst         [███▓░░ 45%]   ▒║
+║▓ ► Trauma_Echo_1999.enc         [▓▓░░░░ 18%]   ▓║
+║▒ ► Last_Breath.frag             [█████ 100%]   ▒║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║
+║▒ [ALERT] NEURAL GHOST DETECTED IN STREAM       ▒▒║
+║▓ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ▓║
+║▒ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ▒║
+║▓ ► INITIATE CONTAINMENT PROTOCOL? (Y/N)        ▓║
+╚══════════════════════════════════════════════════╝
+    `
+};
 
     async function typeWriter(text, speed = 30) {
         return new Promise(resolve => {
