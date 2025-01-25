@@ -1,0 +1,149 @@
+:root {
+    --neon-cyan: #0ff;
+    --neon-pink: #f0f;
+    --terminal-bg: rgba(0, 17, 0, 0.9);
+    --cyber-border: 2px solid var(--neon-cyan);
+}
+
+body {
+    background: #000;
+    font-family: 'VT323', monospace;
+    color: var(--neon-cyan);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.cyber-frame {
+    border: var(--cyber-border);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    background: var(--terminal-bg);
+    padding: 2rem;
+    position: relative;
+}
+
+.terminal {
+    width: 800px;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header {
+    border-bottom: var(--cyber-border);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.ascii-art {
+    color: var(--neon-pink);
+    font-size: 0.8rem;
+    line-height: 1.2;
+    margin: 1rem 0;
+    white-space: pre-wrap;
+}
+
+.soul-stats {
+    margin: 2rem 0;
+    padding: 1rem;
+    border: var(--cyber-border);
+}
+
+.cyber-bar {
+    height: 20px;
+    background: #002200;
+    position: relative;
+    margin: 0.5rem 0;
+}
+
+.cyber-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--progress);
+    background: repeating-linear-gradient(
+        45deg,
+        var(--neon-cyan),
+        var(--neon-cyan) 5px,
+        #000 5px,
+        #000 10px
+    );
+    animation: scanline 2s linear infinite;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.cyber-input {
+    background: transparent;
+    border: none;
+    border-bottom: var(--cyber-border);
+    color: var(--neon-cyan);
+    font-family: inherit;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    width: 100%;
+    margin-left: 0.5rem;
+}
+
+.cyber-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.glitched {
+    animation: glitch 1s infinite;
+    text-shadow: 2px 2px var(--neon-pink),
+                -2px -2px var(--neon-cyan);
+}
+
+@keyframes glitch {
+    0% { text-shadow: 2px 2px var(--neon-pink), -2px -2px var(--neon-cyan); }
+    25% { text-shadow: -3px 1px var(--neon-pink), 3px -1px var(--neon-cyan); }
+    50% { text-shadow: 4px -2px var(--neon-pink), -4px 2px var(--neon-cyan); }
+    75% { text-shadow: -2px 3px var(--neon-pink), 2px -3px var(--neon-cyan); }
+    100% { text-shadow: 2px 2px var(--neon-pink), -2px -2px var(--neon-cyan); }
+}
+
+@keyframes scanline {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 0; }
+}
+
+.hidden {
+    display: none;
+}
+
+.jill-message {
+    color: var(--neon-pink);
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.secret-code {
+    text-align: center;
+    font-size: 1.5rem;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
