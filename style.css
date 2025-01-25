@@ -54,15 +54,6 @@ body {
     white-space: pre-wrap;
 }
 
-.terminal {
-    white-space: pre-wrap; /* Preserve ASCII formatting */
-    overflow-y: auto; /* Enable scrolling */
-    height: 70vh; /* Ensure visible area */
-}
-
-#output {
-    min-height: 300px; /* Prevent content collapse */
-}
 .soul-stats {
     margin: 2rem 0;
     padding: 1rem;
