@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commandInput = document.getElementById('command-input');
     const hiddenMessage = document.getElementById('hidden-message');
     let clickCount = 0;
+    let activeTab = null;
 
     const ASCII = {
         archives: `
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ║ [2] Initiate Soul Audit    ║
 ║ [3] Purchase Afterlife DLC ║
 ║ [4] Decrypt Black Archives ║
-║ [ESC] Log Out              ║
+║ [ESC] Close All Tabs       ║
 ╚════════════════════════════╝
         `;
     }
@@ -108,55 +109,78 @@ document.addEventListener('DOMContentLoaded', () => {
         ).join('');
     }
 
+    function createTab(id, content) {
+        const tab = document.createElement('div');
+        tab.className = 'cyber-tab';
+        tab.id = `tab-${id}`;
+        tab.innerHTML = content;
+        tab.style.transform = 'scale(0.9)';
+        tab.style.opacity = '0';
+        terminalOutput.appendChild(tab);
+        setTimeout(() => {
+            tab.style.transform = 'scale(1)';
+            tab.style.opacity = '1';
+        }, 50);
+        return tab;
+    }
+
+    function activateTab(command) {
+        if (activeTab) {
+            activeTab.style.transform = 'scale(0.8)';
+            activeTab.style.opacity = '0.5';
+            activeTab.style.zIndex = '1';
+        }
+        
+        const tabId = `tab-${command}`;
+        let tab = document.getElementById(tabId);
+        
+        if (!tab) {
+            const content = ASCII[{
+                '1': 'archives',
+                '2': 'soulAudit',
+                '3': 'afterlifeDLC',
+                '4': 'blackArchives'
+            }[command]];
+            tab = createTab(command, content);
+        }
+
+        tab.style.transform = 'scale(1)';
+        tab.style.opacity = '1';
+        tab.style.zIndex = '2';
+        activeTab = tab;
+    }
+
+    function closeAllTabs() {
+        const tabs = document.querySelectorAll('.cyber-tab');
+        tabs.forEach(tab => {
+            tab.style.transform = 'scale(0)';
+            tab.style.opacity = '0';
+            setTimeout(() => tab.remove(), 300);
+        });
+        activeTab = null;
+    }
+
     function processCommand(command) {
         terminalOutput.innerHTML += '\n> ' + command + '\n';
         
         switch(command.toLowerCase()) {
-            case '1': viewBackupArchives(); break;
-            case '2': initiateSoulAudit(); break;
-            case '3': purchaseAfterlifeDLC(); break;
-            case '4': decryptBlackArchives(); break;
-            case 'esc': logOut(); break;
-            case 'dorothy': unlockSecretDrink(); break;
-            default: typeWriter(`UNKNOWN COMMAND: ${command}\n`);
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+                activateTab(command);
+                break;
+            case 'esc':
+                closeAllTabs();
+                break;
+            case 'dorothy':
+                unlockSecretDrink();
+                break;
+            default:
+                typeWriter(`UNKNOWN COMMAND: ${command}\n`);
         }
         
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }
-
-    async function viewBackupArchives() {
-        await typeWriter("\nACCESSING BLACK ARCHIVES...\n");
-        terminalOutput.innerHTML += ASCII.archives;
-        await simulateLoading(1500);
-        await typeWriter("\nWARNING: CORRUPTED ENTRIES DETECTED\n");
-    }
-
-    async function initiateSoulAudit() {
-        await typeWriter("\nINITIATING SOUL INTEGRITY SCAN...\n");
-        terminalOutput.innerHTML += ASCII.soulAudit;
-        await simulateLoading(1500);
-        await typeWriter("\nALERT: TRAUMA ECHOES DETECTED\n");
-    }
-
-    async function purchaseAfterlifeDLC() {
-        await typeWriter("\nCONNECTING TO LAZARUS STORE...\n");
-        terminalOutput.innerHTML += ASCII.afterlifeDLC;
-        await simulateLoading(1500);
-        await typeWriter("\nERROR: INSUFFICIENT CREDITS\n");
-    }
-
-    async function decryptBlackArchives() {
-        await typeWriter("\nINITIALIZING QUANTUM DECRYPTION...\n");
-        terminalOutput.innerHTML += ASCII.blackArchives;
-        await simulateLoading(1500);
-        await typeWriter("\nWARNING: UNAUTHORIZED ACCESS DETECTED\n");
-    }
-
-    async function logOut() {
-        await typeWriter("\nTERMINATING SESSION...\n");
-        await simulateLoading(1000);
-        await typeWriter("\n███] LOGOUT COMPLETE\n");
-        await typeWriter("NEUROSYSTEMS THANKS YOU\n");
     }
 
     async function unlockSecretDrink() {
@@ -181,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.style.setProperty('--progress', `${stats.memory}%`);
     }
 
-    // Initialization
     (async () => {
         try {
             await typeWriter("INITIALIZING SOULKEEPER™ CLOUD...\n\n");
@@ -195,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    // Event Listeners
     document.getElementById('easter-egg-trigger').addEventListener('click', () => {
         if(++clickCount === 3) revealJillMessage();
     });
