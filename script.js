@@ -359,7 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('main-display').classList.add('hidden');
     hiddenMessage.classList.remove('hidden');
     
-    // Wrap in <pre> and add ASCII art styling classes
     hiddenMessage.innerHTML = `
         <pre class="ascii-art jill-message">
 ╔════════════════════════════╗
@@ -374,8 +373,20 @@ document.addEventListener('DOMContentLoaded', () => {
 ╚════════════════════════════╝
         </pre>
         <p class="secret-code glitched">COCKTAIL CODE: GLITCHCITY</p>
+        <div class="cyber-return">
+            <button id="return-main" class="cyber-button glitched">
+                [ RETURN TO MAINFRAME ]
+            </button>
+        </div>
     `;
-    
+
+    // Add return functionality
+    document.getElementById('return-main').addEventListener('click', () => {
+        document.getElementById('main-display').classList.remove('hidden');
+        hiddenMessage.classList.add('hidden');
+        clickCount = 0; // Reset counter for future access
+    });
+
     localStorage.setItem('unlock_code', 'GLITCHCITY');
 }
 
